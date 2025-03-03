@@ -10,16 +10,13 @@ class PostBase(BaseModel):
 class PostCreate(PostBase):
     pass
 
-class PostUpdate(PostBase):
-    pass
+
 class Post(PostBase):
     id : int
-    title : str
-    content : str
-    published : bool
+    created_at : datetime
     
     class Config:
-        orm_mode = True
+        from_attribute = True
     
 
 
