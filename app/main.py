@@ -1,6 +1,7 @@
 from fastapi import FastAPI,Response,status,HTTPException, Depends
 from fastapi.params import Body
 from pydantic import BaseModel
+from passlib.context import CryptContext
 from typing import Optional,List
 from random import  randrange
 import psycopg2
@@ -11,7 +12,7 @@ from sqlalchemy.sql.functions import mode
 from . import models, schemas
 from .database import engine, get_db
 
-
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
@@ -121,4 +122,18 @@ def update_post(id : int, updated_post: schemas.PostCreate, db: Session = Depend
     
     db.commit()
     return post_query.first()
+
+
+@app.post("/users", status_code=status.HTTP_201_CREATED, response_model = schemas.UserOut)
+def create_user(user : schemas.UserCreate, db: Session = Depends(get_db)):
+     
+    new_user =models.User(**user.model_dump())
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    return new_user
+
+
+
+
 
