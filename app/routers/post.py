@@ -9,7 +9,7 @@ router = APIRouter(
     tags=['Posts']
 )
 
-@router.get("/", response_model = list[schemas.Post])
+@router.get("/", response_model = List[schemas.Post])
 def get_posts(db: Session = Depends(get_db),user_id: int = Depends(oauth2.get_current_user)):
     # cursor.execute("""SELECT * FROM posts WHERE id = 1""")
     # posts= cursor.fetchall()
@@ -26,6 +26,7 @@ def create_posts(post: schemas.PostCreate, db: Session = Depends(get_db), curren
     # conn.commit()
     print(current_user.email)
     new_post =models.Post(**post.model_dump())
+    new_post.owner_id = current_user.id
     db.add(new_post)
     db.commit()
     db.refresh(new_post)
