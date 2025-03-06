@@ -29,6 +29,13 @@ class Post(PostBase):
     class Config:
         from_attribute = True
 
+class PostOut(BaseModel):
+    Post: Post
+    votes: int
+
+    class Config:
+        from_attribute = True
+
 
 class UserCreate(BaseModel):
     email : EmailStr
@@ -52,5 +59,9 @@ class Vote(BaseModel):
     post_id : int
     dir : conint(le=1)
 
+class PostOut(BaseModel):
+    Post: Post
+    votes: int
 
-
+    class Config:
+        from_attribute = True
