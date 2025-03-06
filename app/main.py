@@ -3,7 +3,7 @@ from . import models
 from .database import engine
 from . routers import post, user, auth, vote
 
-from .config import settings
+from app.config import settings
 
 print(settings.database_username)
 
