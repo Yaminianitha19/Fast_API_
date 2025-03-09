@@ -1,6 +1,6 @@
 
 import pytest
-from app.calculations import add, multiply, subtract, divide, BankAccount
+from app.calculations import add, multiply, subtract, divide, BankAccount, InsufficientFunds
 
 
 @pytest.fixture
@@ -72,7 +72,7 @@ def test_bank_transaction(zero_bank_account, deposited,withdrew,expected):
 
 def test_insufficient_funds(bank_account):
     
-    with pytest.raises(Exception, match="Insufficient funds"):
-        bank_account.withdraw(200)
+    with pytest.raises(InsufficientFunds):
+         bank_account.withdraw(200)
 
 
