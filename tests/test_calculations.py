@@ -19,7 +19,7 @@ def test_add(num1, num2, expected):
     assert add(num1, num2) == expected
  
 def test_subtract():
-    assert subtract(8, 5) == 4
+    assert subtract(8, 5) == 3
 
 def test_multiply():
     assert multiply(4, 3) == 12
@@ -57,7 +57,7 @@ def test_deposit(bank_account):
 def test_collect_interest(bank_account):
     
     bank_account.collect_interest()
-    assert round(bank_account.balance,6) == 56
+    assert round(bank_account.balance,6) == 55
 
 
 
